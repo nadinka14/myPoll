@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        body {
+            margin:10px;
+            background: #fff8f4;
+        }
+
+        nav{
+            display: block;
+            margin: 0 auto 30px;
+        }
+
+        .menu ul {
+            padding: 0 0;
+            background: #ECDAD6;
+        }
+        .menu  a {
+            padding: 1em;
+            background: rgba(177, 152, 145, .3);
+            border-right: 1px solid #b19891;
+            color: #695753;
+            text-decoration: none;
+        }
+        .menu  a:hover {
+            background: #b19891;
+            text-decoration: none;}
+
+        .menu  li {
+            display: inline;
+        }
+
+        a{
+            line-height:70px;
+            text-decoration: none;
+            font-family: TimesNewRoman;
+            transition: .5s linear;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0 auto;
+        }
+
+        .poll {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .poll h1 {
+            font-family: 'Open Sans', sans-serif;
+            position: relative;
+            color: #5C2610;
+            font-size: 3em;
+            font-weight: normal;
+            line-height: 1;
+            padding: 10px 0;
+            margin: 0;
+            display: inline-block;
+        }
+        .poll h1:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 80%;
+            height: 200%;
+            border-radius: 50%/30%;
+            border: 6px solid #5C2610;
+            border-left-color: transparent;
+            border-right-color: transparent;
+        }
+        @media (max-width: 420px) {
+            .two h1 {font-size: 2em;}
+        }
+
+        .text-shadow-9 {
+            size: 50px;
+            color: white;
+            text-shadow: 1px 1px #732372, 1px -1px #732372, -1px 1px #732372, -1px -1px #732372, 3px 3px 6px rgba(0,0,0,.5);
+        }
+
+        .content {
+            min-height: calc(100vh - 70px);
+        }
+        .footer {
+            height: 50px;
+            background: #b19891;
+        }
+
+        .widthAll{
+            width: 800px;
+            padding-left: 100px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="poll">
+        <h1>Poll in web</h1>
+    </div>
+
+    <nav class="menu">
+        <ul class="menu">
+            <li class="menu">
+                <a class="menu" href="/">
+                    <img src="https://lh3.googleusercontent.com/proxy/ZnJGuB_6VHa5NIjwRMYps8cWQ9m2jNjMqQQCPs38QdZ9ptpdi8FkKHuiTQWUoagqWRJmzFGdDnim4PKOqvkj9xv65yrG86RXQ5lLf-pPF7lrBW39tcQJ9xZPMg-GMIgQYSmdOoBVbwgKvSeF" height="45" width="90" hspace="10" vspace="10" align="center">
+                </a>
+            </li>
+            <li class="menu">
+                <a class="menu" href="/">Home</a>
+            </li>
+            <li class="menu">
+                <a class="menu" href="/user/registration" th:if="${session.user==null}">Registration</a>
+            </li>
+            <li class="menu">
+                <a class="menu" href="/user/authorization" th:if="${session.user==null}">Authorization</a>
+            </li>
+            <li class="menu">
+                <a class="menu" href="/poll"  th:if="${session.user!= null}">Create poll</a>
+            </li>
+            <li class="menu">
+                <a class="menu" href="/user/profile"  th:if="${session.user!= null}" >Profile</a>
+            </li>
+            <li class="menu">
+                <a class="menu" href="/user/logout" th:if="${session.user!= null}">Logout</a>
+            </li>
+            <li class="menu">
+                <a class="menu" href="/">
+                    <img src="https://lh3.googleusercontent.com/proxy/ZnJGuB_6VHa5NIjwRMYps8cWQ9m2jNjMqQQCPs38QdZ9ptpdi8FkKHuiTQWUoagqWRJmzFGdDnim4PKOqvkj9xv65yrG86RXQ5lLf-pPF7lrBW39tcQJ9xZPMg-GMIgQYSmdOoBVbwgKvSeF" height="45" width="90" hspace="10" vspace="10" align="center">
+                </a>
+            </li>
+        </ul>
+
+
+
+    </nav>
+
+    <br>
+
+<form action="/user/registration" th:object="${user}" method="post" class="widthAll">
+
+
+    <div class="form-group">
+        <label for="formGroupExampleInput1">Input name</label>
+        <input type="text" width="100" class="form-control" id="formGroupExampleInput1"  th:field="*{name}"/>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Input email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" th:field="*{email}" />
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect date</p>
+    </div>
+
+
+    <div class="form-group">
+        <label for="formGroupExampleInput2">Input username</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2"  th:field="*{username}"/>
+        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect date</p>
+    </div>
+    <br>
+
+
+    <div class="form-group">
+        <label for="exampleInputPassword1">Input password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" th:field="*{password}"/>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
+
+    </div>
+    <br>
+
+
+    <button type="submit" class="btn btn-outline-dark">
+        registration
+    </button>
+
+
+    <p th:if="${userNotReg!=null}">This username is not available</p>
+    <p  th:utext>User is registrated</p>
+
+</form>
+
+</div>
+<footer class="footer">
+    <p align="center" >©NadiaTMS8 MINSK2021</p><br>
+</footer>
+
+</body>
+</html>
